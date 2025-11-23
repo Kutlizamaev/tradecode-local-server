@@ -1,4 +1,4 @@
-import { users, balances, services, serviceStats } from './_data.js'
+import { balances, services, serviceStats } from './_data.js'
 
 function setCors(res) {
     res.setHeader('Access-Control-Allow-Origin', '*')
@@ -18,8 +18,13 @@ function getUserFromAuthHeader(req) {
     const telegramId = Number(telegramIdStr)
     if (!telegramId) return null
 
-    const user = users.find((u) => u.telegramId === telegramId)
-    return user || null
+    const user = {
+        id: telegramId,
+        telegramId,
+        telegramUsername: 'MockUser',
+    }
+
+    return user
 }
 
 export default async function handler(req, res) {
